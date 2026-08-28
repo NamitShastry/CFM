@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thumbnail Design | CreateForMe</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playwrite+CU:wght@300;400&family=Syne:wght@700;800&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+    
+    <style>
+        /* ===================================================
+           ANIMATION STYLE 1: TOP SLIDE & ZOOM POP (Intro)
+           =================================================== */
+        @keyframes headerDrop {
+            0% { opacity: 0; transform: translateY(-40px) scale(0.95); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        @keyframes textSlideLeft {
+            0% { opacity: 0; transform: translateX(-50px); }
+            100% { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes thumbPopZoom {
+            0% { opacity: 0; transform: scale(0.7) rotate(-3deg); }
+            70% { transform: scale(1.05) rotate(1deg); }
+            100% { opacity: 1; transform: scale(1) rotate(0deg); }
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            animation: headerDrop 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .fancy-title {
+            font-family: 'Playwrite CU', cursive, sans-serif;
+            font-size: 3.2rem;
+            color: #0f172a;
+            margin-bottom: 0.5rem;
+        }
+
+        .intro-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            animation: textSlideLeft 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
+            opacity: 0; /* Hidden until animation starts */
+        }
+
+        .intro-card p {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: #334155;
+            margin-bottom: 0.8rem;
+        }
+
+        /* 4 Thumbnail Row Grid with Staggered Pop */
+        .thumbnail-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.2rem;
+            margin-top: 1.5rem;
+        }
+
+        .thumb-box {
+            background: #0f172a;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            opacity: 0;
+            animation: thumbPopZoom 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        /* Staggered Delay for 4 Thumbnails */
+        .thumb-box:nth-child(1) { animation-delay: 0.4s; }
+        .thumb-box:nth-child(2) { animation-delay: 0.55s; }
+        .thumb-box:nth-child(3) { animation-delay: 0.7s; }
+        .thumb-box:nth-child(4) { animation-delay: 0.85s; }
+
+        .thumb-box:hover {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 16px 32px rgba(37, 99, 235, 0.25);
+        }
+
+        .thumb-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .thumb-box--placeholder {
+            aspect-ratio: 16 / 9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            position: relative;
+        }
+
+        .thumb-box--placeholder::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 30% 30%, rgba(124, 58, 237, 0.35), transparent 55%),
+                        radial-gradient(circle at 75% 70%, rgba(37, 99, 235, 0.3), transparent 55%);
+        }
+
+        .thumb-box--placeholder span {
+            position: relative;
+            z-index: 1;
+            color: rgba(248, 250, 252, 0.85);
+            font-family: 'Syne', sans-serif;
+            font-weight: 700;
+            font-size: 0.95rem;
+            letter-spacing: 0.04em;
+        }
+
+        /* ===================================================
+           ANIMATION STYLE 2: 3D PERSPECTIVE SLIDE (Our Process)
+           =================================================== */
+        @keyframes process3DSlide {
+            0% { 
+                opacity: 0; 
+                transform: perspective(1000px) rotateY(-15deg) translateX(60px); 
+            }
+            100% { 
+                opacity: 1; 
+                transform: perspective(1000px) rotateY(0deg) translateX(0); 
+            }
+        }
+
+        @keyframes titleFloatUp {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 2.2rem;
+            text-align: center;
+            margin: 4rem 0 2rem 0;
+            color: #0f172a;
+            opacity: 0;
+            animation: titleFloatUp 0.8s ease-out 0.9s forwards; /* Appears with section 1 to hint scroll */
+        }
+
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 4rem;
+        }
+
+        .process-card {
+            background: rgba(15, 23, 42, 0.92);
+            color: #ffffff;
+            border-radius: 18px;
+            padding: 1.8rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 12px 30px rgba(15, 23, 42, 0.15);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            animation: process3DSlide 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        /* Staggered Delay for 6 Cards */
+        .process-card:nth-child(1) { animation-delay: 1.0s; }
+        .process-card:nth-child(2) { animation-delay: 1.15s; }
+        .process-card:nth-child(3) { animation-delay: 1.3s; }
+        .process-card:nth-child(4) { animation-delay: 1.45s; }
+        .process-card:nth-child(5) { animation-delay: 1.6s; }
+        .process-card:nth-child(6) { animation-delay: 1.75s; }
+
+        .process-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: #3b82f6;
+            box-shadow: 0 16px 36px rgba(59, 130, 246, 0.35);
+        }
+
+        .step-num {
+            display: inline-block;
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            color: #ffffff;
+            font-weight: 800;
+            font-size: 0.85rem;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            margin-bottom: 1rem;
+        }
+
+        .process-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.6rem;
+            color: #f8fafc;
+        }
+
+        .process-card p {
+            font-size: 0.9rem;
+            color: #94a3b8;
+            line-height: 1.6;
+        }
+
+        /* ===================================================
+           ANIMATION STYLE 3: LEFT SLIDE GLOW UNFURL (Facts)
+           =================================================== */
+        @keyframes factUnfurl {
+            0% { 
+                opacity: 0; 
+                transform: translateX(-40px);
+                box-shadow: -10px 0 0 #2563eb;
+            }
+            100% { 
+                opacity: 1; 
+                transform: translateX(0);
+                box-shadow: none;
+            }
+        }
+
+        .facts-title {
+            opacity: 0;
+            animation: titleFloatUp 0.8s ease-out 1.8s forwards;
+        }
+
+        .facts-wrapper {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            border-radius: 20px;
+            padding: 2.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            margin-bottom: 4rem;
+        }
+
+        .fact-item {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.2rem;
+            border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+            opacity: 0;
+            animation: factUnfurl 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .fact-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        /* Staggered Delay for 5 Verified Facts */
+        .fact-item:nth-child(1) { animation-delay: 2.0s; }
+        .fact-item:nth-child(2) { animation-delay: 2.2s; }
+        .fact-item:nth-child(3) { animation-delay: 2.4s; }
+        .fact-item:nth-child(4) { animation-delay: 2.6s; }
+        .fact-item:nth-child(5) { animation-delay: 2.8s; }
+
+        .fact-title {
+            font-weight: 700;
+            color: #0f172a;
+            font-size: 1.05rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .fact-desc {
+            color: #475569;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 900px) {
+            .thumbnail-grid { grid-template-columns: repeat(2, 1fr); }
+            .process-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+    <link rel="stylesheet" href="../css/threeui.css">
+</head>
+<body>
+    <div id="cfm-loader" aria-hidden="true">
+        <div class="cfm-loader-mark"><span class="cfm-loader-dot"></span>CreateForMe</div>
+    </div>
+    <canvas id="cfm-bg-canvas" aria-hidden="true"></canvas>
+
+
+    <header class="navbar">
+        <div class="logo">CreateForMe</div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="../index.html">About</a></li>
+                
+                <li class="dropdown">
+                    <a href="javascript:void(0)" class="dropdown-btn">Services We Offer <span class="arrow">▼</span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="thumbnail-design.html">Thumbnail Design</a></li>
+                        <li><a href="ai-image-generation.html">AI Image Generation</a></li>
+                        <li><a href="ai-video-generation.html">AI Video Generation</a></li>
+                        <li><a href="voice-over.html">Voice Over</a></li>
+                        <li><a href="book-writing-guidance.html">Book Writing (guidance only)</a></li>
+                        <li><a href="ghostwriting.html">Ghost Writing</a></li>
+                        <li><a href="blog-articles.html">Blog Articles</a></li>
+                        <li><a href="newsletter-writing.html">Newsletter Writing</a></li>
+                        <li><a href="resume-cv.html">Resume/CV</a></li>
+                        <li><a href="custom-project.html">Custom Project</a></li>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="javascript:void(0)" class="dropdown-btn">Portfolio <span class="arrow">▼</span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="../portfolio/videos.html">Video</a></li>
+                        <li><a href="../portfolio/images.html">Images</a></li>
+                        <li><a href="../portfolio/before-after.html">Before & After</a></li>
+                    </ul>
+                </li>
+
+                <li><a href="../pricing.html">Pricing</a></li>
+                <li><a href="../privacy.html">Privacy</a></li>
+                <li><a href="../refund.html">Refund</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="main-wrapper">
+        
+        <div class="page-header">
+            <h1 class="fancy-title">Thumbnail Design</h1>
+        </div>
+
+        <div class="intro-card">
+            <p>A great thumbnail is often the difference between a video that gets noticed and one that gets overlooked. We create clean, eye-catching thumbnails designed to capture attention and encourage more clicks.</p>
+            <p>Whether you're a YouTuber, student, business owner, or content creator, each thumbnail is customized to match your brand, style, and audience with bold visuals, readable text, and professional composition.</p>
+
+            <div class="thumbnail-grid">
+                <div class="thumb-box thumb-box--placeholder" role="img" aria-label="Sample thumbnail 1 preview"><span>Sample 01</span></div>
+                <div class="thumb-box thumb-box--placeholder" role="img" aria-label="Sample thumbnail 2 preview"><span>Sample 02</span></div>
+                <div class="thumb-box thumb-box--placeholder" role="img" aria-label="Sample thumbnail 3 preview"><span>Sample 03</span></div>
+                <div class="thumb-box thumb-box--placeholder" role="img" aria-label="Sample thumbnail 4 preview"><span>Sample 04</span></div>
+            </div>
+        </div>
+
+        <h2 class="section-title">Our Process: The Anatomy of a Standout Thumbnail</h2>
+        
+        <div class="process-grid">
+            <div class="process-card">
+                <span class="step-num">Step 01</span>
+                <h3>Strategic Concepting</h3>
+                <p>Analyzing video hooks, target audience triggers, and competitor positioning to craft high-impact emotional hooks.</p>
+            </div>
+
+            <div class="process-card">
+                <span class="step-num">Step 02</span>
+                <h3>Micro-Hierarchy Layout</h3>
+                <p>Designing digital eye-tracking screens with strategic subject placement and clean, instantly readable focal points.</p>
+            </div>
+
+            <div class="process-card">
+                <span class="step-num">Step 03</span>
+                <h3>Subject Optimization</h3>
+                <p>Extracting subjects using AI tools and depth engineering to add dramatic lighting and pop against backgrounds.</p>
+            </div>
+
+            <div class="process-card">
+                <span class="step-num">Step 04</span>
+                <h3>High-Contrast Color Mapping</h3>
+                <p>Applying color grading and saturation techniques that ensure maximum vibrancy across dark and light viewing modes.</p>
+            </div>
+
+            <div class="process-card">
+                <span class="step-num">Step 05</span>
+                <h3>Thumbnail Grid Testing</h3>
+                <p>Testing actual display sizes on mobile screens to ensure key text remains legible at smaller resolutions.</p>
+            </div>
+
+            <div class="process-card">
+                <span class="step-num">Step 06</span>
+                <h3>Final Polishing & CTR Precision</h3>
+                <p>Fine-tuning sharpness, color balance, and curiosity elements designed to boost click-through rates.</p>
+            </div>
+        </div>
+
+        <h2 class="section-title facts-title">Verified Facts: Why Thumbnails Drive Channel Growth</h2>
+
+        <div class="facts-wrapper">
+            <div class="fact-item">
+                <div class="fact-title">1. The Impression-to-View Gateway</div>
+                <div class="fact-desc">Click-Through Rate (CTR) and Retention are the top two metrics controlling whether the algorithm promotes your video to new audiences.</div>
+            </div>
+
+            <div class="fact-item">
+                <div class="fact-title">2. The 3–10% CTR Benchmark</div>
+                <div class="fact-desc">Most YouTube channels sit at a 2–10% CTR. Improving your CTR by even 1–2% can unlock thousands of additional organic views.</div>
+            </div>
+
+            <div class="fact-item">
+                <div class="fact-title">3. The First 24-Hour Critical Window</div>
+                <div class="fact-desc">A high CTR in the first 24–48 hours signals early viewer interest, prompting platforms to push content to broader feeds.</div>
+            </div>
+
+            <div class="fact-item">
+                <div class="fact-title">4. Facial Emotion & Human Processing</div>
+                <div class="fact-desc">The human brain processes faces in as fast as 13 milliseconds. Thumbnails with clear emotional expressions capture up to 38% more attention.</div>
+            </div>
+
+            <div class="fact-item">
+                <div class="fact-title">5. Mobile Viewport Dominance</div>
+                <div class="fact-desc">With over 70% of views coming from mobile devices, high contrast between subjects and backgrounds improves readability significantly.</div>
+            </div>
+        </div>
+
+    </main>
+
+    <script type="module" src="../js/threeui.js"></script>
+</body>
+</html>

@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Refund Policy | CreateForMe</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playwrite+CU:wght@300;400&family=Syne:wght@700;800&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Moving Soft Cloud Animated Background */
+        body {
+            font-family: 'Outfit', sans-serif;
+            min-height: 100vh;
+            color: #0f172a;
+            background: linear-gradient(135deg, #f0f4ff 0%, #e8eefd 25%, #fcefe8 50%, #e3f2fd 75%, #f3e8ff 100%);
+            background-size: 400% 400%;
+            animation: cloudAnimation 15s ease infinite;
+        }
+
+        @keyframes cloudAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Navigation Bar Styles */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 3rem;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: #0f172a;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #334155;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #2563eb;
+        }
+
+        /* Dropdown Menus */
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: #ffffff;
+            min-width: 220px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            padding: 0.8rem 0;
+            list-style: none;
+            z-index: 1001;
+        }
+
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+
+        .dropdown-menu li a {
+            padding: 0.6rem 1.2rem;
+            display: block;
+            color: #334155;
+            font-size: 0.9rem;
+        }
+
+        .dropdown-menu li a:hover {
+            background: #f1f5f9;
+            color: #2563eb;
+        }
+
+        /* Main Content Layout */
+        .main-wrapper {
+            max-width: 900px;
+            margin: 3rem auto 5rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .fancy-title {
+            font-family: 'Playwrite CU', cursive;
+            font-size: 3.5rem;
+            color: #0f172a;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            animation: fadeInDown 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .content-card {
+            background: rgba(255, 255, 255, 0.82);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            border-radius: 24px;
+            padding: 3rem;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.04);
+            animation: floatUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .policy-block {
+            margin-bottom: 1.8rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: textFadeIn 0.8s ease forwards;
+        }
+
+        .policy-block:nth-child(1) { animation-delay: 0.2s; }
+        .policy-block:nth-child(2) { animation-delay: 0.4s; }
+        .policy-block:nth-child(3) { animation-delay: 0.6s; }
+
+        .policy-block:last-child {
+            margin-bottom: 0;
+        }
+
+        .policy-block p {
+            font-size: 1.15rem;
+            line-height: 1.8;
+            color: #334155;
+        }
+
+        .highlight {
+            font-weight: 600;
+            color: #0f172a;
+            border-bottom: 2px solid #2563eb;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes floatUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes textFadeIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            .navbar { padding: 1rem 1.5rem; flex-direction: column; gap: 1rem; }
+            .nav-links { flex-wrap: wrap; justify-content: center; gap: 1rem; }
+            .fancy-title { font-size: 2.5rem; }
+            .content-card { padding: 2rem; }
+        }
+    </style>
+    <link rel="stylesheet" href="css/threeui.css">
+</head>
+<body>
+    <div id="cfm-loader" aria-hidden="true">
+        <div class="cfm-loader-mark"><span class="cfm-loader-dot"></span>CreateForMe</div>
+    </div>
+    <canvas id="cfm-bg-canvas" aria-hidden="true"></canvas>
+
+
+    <header class="navbar">
+        <div class="logo">CreateForMe</div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="index.html">About</a></li>
+                <li class="dropdown">
+                    <a href="javascript:void(0)" class="dropdown-btn">Services We Offer ▾</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="services/thumbnail-design.html">Thumbnail Design</a></li>
+                        <li><a href="services/ai-image-generation.html">AI Image Generation</a></li>
+                        <li><a href="services/ai-video-generation.html">AI Video Generation</a></li>
+                        <li><a href="services/voice-over.html">Voice Over</a></li>
+                        <li><a href="services/book-writing-guidance.html">Book Writing (guidance only)</a></li>
+                        <li><a href="services/ghostwriting.html">Ghost Writing</a></li>
+                        <li><a href="services/blog-articles.html">Blog Articles</a></li>
+                        <li><a href="services/newsletter-writing.html">Newsletter Writing</a></li>
+                        <li><a href="services/resume-cv.html">Resume/CV</a></li>
+                        <li><a href="services/custom-project.html">Custom Project</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="javascript:void(0)" class="dropdown-btn">Portfolio ▾</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="portfolio/videos.html">Video</a></li>
+                        <li><a href="portfolio/images.html">Images</a></li>
+                        <li><a href="portfolio/before-after.html">Before & After</a></li>
+                    </ul>
+                </li>
+                <li><a href="pricing.html">Pricing</a></li>
+                <li><a href="privacy.html">Privacy</a></li>
+                <li><a href="refund.html">Refund</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="main-wrapper">
+        <div class="page-header">
+            <h1 class="fancy-title">Refund Policy</h1>
+        </div>
+
+        <div class="content-card">
+            <div class="policy-block">
+                <p><span class="highlight">Customer satisfaction is our highest priority.</span> If you're not completely satisfied with the initial delivery, we'll gladly work with you through reasonable revisions to ensure the final result meets your expectations.</p>
+            </div>
+
+            <div class="policy-block">
+                <p>Because our services involve custom digital work created specifically for each client, refunds are generally not available once the project has been completed and delivered. However, if we're unable to complete your project as agreed or if an issue arises from our side, we'll work with you to find a fair and reasonable solution.</p>
+            </div>
+
+            <div class="policy-block">
+                <p>If you have any concerns at any stage of the project, please don't hesitate to <span class="highlight">contact us</span>. Open communication helps us deliver the best possible experience.</p>
+            </div>
+        </div>
+    </main>
+
+    <script type="module" src="js/threeui.js"></script>
+</body>
+</html>

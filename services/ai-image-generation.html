@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Image Generation | CreateForMe</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playwrite+CU:wght@300;400&family=Syne:wght@700;800&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+    
+    <style>
+        /* Custom Styles & Dynamic Animations */
+        .page-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            opacity: 0;
+            transform: translateY(-30px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .page-header.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .fancy-title {
+            font-family: 'Playwrite CU', cursive, sans-serif;
+            font-size: 3.2rem;
+            color: #0f172a;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Intro Box */
+        .intro-box {
+            background: rgba(255, 255, 255, 0.82);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 2.2rem;
+            margin-bottom: 3.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+            opacity: 0;
+            transform: translateX(-40px);
+            transition: all 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .intro-box.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .intro-box ul {
+            list-style-type: disc;
+            padding-left: 1.5rem;
+        }
+
+        .intro-box li {
+            font-size: 1.05rem;
+            line-height: 1.75;
+            color: #334155;
+            margin-bottom: 0.8rem;
+        }
+
+        /* Section Titles */
+        .section-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 2.2rem;
+            text-align: center;
+            margin: 4rem 0 2rem 0;
+            color: #0f172a;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .section-title.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Our Approach Grid (2x2 Layout) */
+        .approach-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.8rem;
+            margin-bottom: 4rem;
+        }
+
+        .approach-card {
+            background: rgba(15, 23, 42, 0.92);
+            color: #ffffff;
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 0 12px 32px rgba(15, 23, 42, 0.15);
+            opacity: 0;
+            transform: perspective(1000px) rotateY(-12deg) translateY(40px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .approach-card.active {
+            opacity: 1;
+            transform: perspective(1000px) rotateY(0deg) translateY(0);
+        }
+
+        .approach-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: #3b82f6;
+            box-shadow: 0 18px 40px rgba(59, 130, 246, 0.3);
+        }
+
+        .approach-card h3 {
+            font-size: 1.35rem;
+            margin-bottom: 0.8rem;
+            color: #f8fafc;
+            line-height: 1.3;
+        }
+
+        .approach-card p {
+            font-size: 0.95rem;
+            color: #94a3b8;
+            line-height: 1.65;
+        }
+
+        /* Verified Facts Box */
+        .facts-wrapper {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            border-radius: 20px;
+            padding: 2.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            margin-bottom: 4rem;
+        }
+
+        .fact-item {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.2rem;
+            border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .fact-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .fact-item.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .fact-title {
+            font-weight: 700;
+            color: #0f172a;
+            font-size: 1.08rem;
+            margin-bottom: 0.35rem;
+        }
+
+        .fact-desc {
+            color: #475569;
+            font-size: 0.95rem;
+            line-height: 1.65;
+        }
+
+        @media (max-width: 850px) {
+            .approach-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+    <link rel="stylesheet" href="../css/threeui.css">
+</head>
+<body>
+    <div id="cfm-loader" aria-hidden="true">
+        <div class="cfm-loader-mark"><span class="cfm-loader-dot"></span>CreateForMe</div>
+    </div>
+    <canvas id="cfm-bg-canvas" aria-hidden="true"></canvas>
+
+
+    <header class="navbar">
+        <div class="logo">CreateForMe</div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="../index.html">About</a></li>
+                
+                <li class="dropdown">
+                    <a href="javascript:void(0)" class="dropdown-btn">Services We Offer <span class="arrow">▼</span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="thumbnail-design.html">Thumbnail Design</a></li>
+                        <li><a href="ai-image-generation.html">AI Image Generation</a></li>
+                        <li><a href="ai-video-generation.html">AI Video Generation</a></li>
+                        <li><a href="voice-over.html">Voice Over</a></li>
+                        <li><a href="book-writing-guidance.html">Book Writing (guidance only)</a></li>
+                        <li><a href="ghostwriting.html">Ghost Writing</a></li>
+                        <li><a href="blog-articles.html">Blog Articles</a></li>
+                        <li><a href="newsletter-writing.html">Newsletter Writing</a></li>
+                        <li><a href="resume-cv.html">Resume/CV</a></li>
+                        <li><a href="custom-project.html">Custom Project</a></li>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="javascript:void(0)" class="dropdown-btn">Portfolio <span class="arrow">▼</span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="../portfolio/videos.html">Video</a></li>
+                        <li><a href="../portfolio/images.html">Images</a></li>
+                        <li><a href="../portfolio/before-after.html">Before & After</a></li>
+                    </ul>
+                </li>
+
+                <li><a href="../pricing.html">Pricing</a></li>
+                <li><a href="../privacy.html">Privacy</a></li>
+                <li><a href="../refund.html">Refund</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="main-wrapper">
+        
+        <div class="page-header reveal">
+            <h1 class="fancy-title">AI Image Generation</h1>
+        </div>
+
+        <div class="intro-box reveal">
+            <ul>
+                <li>Transform your imagination into stunning visuals with the power of AI.</li>
+                <li>We create high-quality AI-generated images for social media, posters, presentations, marketing campaigns, book covers, digital artwork, and creative projects.</li>
+                <li>Simply share your idea or reference, and we'll turn it into a unique, visually appealing image tailored to your requirements.</li>
+            </ul>
+        </div>
+
+        <h2 class="section-title reveal">Our Approach</h2>
+
+        <div class="approach-grid">
+            <div class="approach-card reveal">
+                <h3>Strategic Intent & Psychology Mapping</h3>
+                <p>We don't just write a prompt; we analyze your core message, intended emotion (curiosity, excitement, intrigue), and niche visual language. We map out the visceral trigger needed to stop the scroll.</p>
+            </div>
+
+            <div class="approach-card reveal">
+                <h3>Visual Hierarchy & Micro-Comprehension</h3>
+                <p>The human eye processes digital visuals in milliseconds. We engineer clean visual structure and strategic information placement using mathematical eye-tracking data, ensuring your core message is understood at a glance.</p>
+            </div>
+
+            <div class="approach-card reveal">
+                <h3>Advanced Subject Optimization & Depth Engineering</h3>
+                <p>We apply advanced extraction and refinement. Utilizing AI-powered precision and compositional science, we enhance facial expressions and deploy complex rim lighting, multi-layered atmospheric blurring, and 3D wireframe analysis.</p>
+            </div>
+
+            <div class="approach-card reveal">
+                <h3>Aesthetic Rigor & High-Saturation Contrast Mapping</h3>
+                <p>Standard AI visuals can be dull or low-contrast. We apply precision color grading and high-saturation contrast mapping. This ensures your poster or asset remains vivid, sharp, and impossible to ignore across all devices.</p>
+            </div>
+        </div>
+
+        <h2 class="section-title reveal">Verified Facts: Why Our Engineering Drives Engagement</h2>
+
+        <div class="facts-wrapper">
+            <div class="fact-item reveal">
+                <div class="fact-title">1. Facial Emotion Recognition</div>
+                <div class="fact-desc">Studies in visual cognition show the human brain processes faces and exaggerated expressions in as little as 13 milliseconds. Visuals with clear emotional reactions capture attention 38% faster than plain graphics. We analytically optimize these crucial milliseconds for maximum engagement.</div>
+            </div>
+
+            <div class="fact-item reveal">
+                <div class="fact-title">2. Focal Point Limit (The Rule of 3)</div>
+                <div class="fact-desc">Visual tracking data proves that graphics or posters with more than 3 major focal elements cause cognitive overload, making viewers twice as likely to scroll right past. We scientifically limit visual clutter.</div>
+            </div>
+
+            <div class="fact-item reveal">
+                <div class="fact-title">3. Mobile Viewport Readability</div>
+                <div class="fact-desc">With over 70% of views occurring on mobile devices, high-contrast element separation (foreground subject vs. blurred background) increases readability by up to 50% compared to standard, low-contrast edits.</div>
+            </div>
+
+            <div class="fact-item reveal">
+                <div class="fact-title">4. The Impression-to-View Gateway</div>
+                <div class="fact-desc">YouTube's Creator Insider confirms Click-Through Rate (CTR) and Retention are the top two metrics used by the recommendation algorithm to decide whether a video gets pushed. Standard AI prompting produces an image; our engineering creates a strategic asset engineered specifically to trigger this gateway.</div>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        function revealOnScroll() {
+            const reveals = document.querySelectorAll('.reveal');
+            const windowHeight = window.innerHeight;
+
+            reveals.forEach((element, index) => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 100;
+
+                if (elementTop < windowHeight - elementVisible) {
+                    // Stagger activation slightly for smooth flow
+                    setTimeout(() => {
+                        element.classList.add('active');
+                    }, (index % 4) * 120);
+                }
+            });
+        }
+
+        window.addEventListener('scroll', revealOnScroll);
+        window.addEventListener('load', revealOnScroll);
+    </script>
+
+    <script type="module" src="../js/threeui.js"></script>
+</body>
+</html>

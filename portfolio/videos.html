@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Portfolio | CreateForMe</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playwrite+CU:wght@300;400&family=Syne:wght@700;800&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+    
+    <style>
+        .page-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .fancy-title {
+            font-family: 'Playwrite CU', cursive, sans-serif;
+            font-size: 3rem;
+            color: #0f172a;
+            margin-bottom: 0.5rem;
+        }
+
+        .page-subtitle {
+            font-size: 1.1rem;
+            color: #475569;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Coming Soon Section Styles */
+        .coming-soon-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            min-height: 40vh;
+            padding: 3rem 1.5rem;
+            background: rgba(15, 23, 42, 0.03);
+            border: 2px dashed rgba(15, 23, 42, 0.15);
+            border-radius: 20px;
+            margin: 2rem 0 4rem 0;
+            backdrop-filter: blur(5px);
+        }
+
+        .coming-soon-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 1rem;
+            letter-spacing: -0.025em;
+        }
+
+        .coming-soon-text {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.1rem;
+            color: #475569;
+            max-width: 500px;
+            line-height: 1.6;
+        }
+    </style>
+    <link rel="stylesheet" href="../css/threeui.css">
+</head>
+<body>
+    <div id="cfm-loader" aria-hidden="true">
+        <div class="cfm-loader-mark"><span class="cfm-loader-dot"></span>CreateForMe</div>
+    </div>
+    <canvas id="cfm-bg-canvas" aria-hidden="true"></canvas>
+
+
+    <header class="navbar">
+        <div class="logo">CreateForMe</div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="../index.html">About</a></li>
+                
+                <li class="dropdown">
+                    <a href="javascript:void(0)" class="dropdown-btn">Services We Offer <span class="arrow">▼</span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="../services/thumbnail-design.html">Thumbnail Design</a></li>
+                        <li><a href="../services/ai-image-generation.html">AI Image Generation</a></li>
+                        <li><a href="../services/ai-video-generation.html">AI Video Generation</a></li>
+                        <li><a href="../services/voice-over.html">Voice Over</a></li>
+                        <li><a href="../services/book-writing-guidance.html">Book Writing (guidance only)</a></li>
+                        <li><a href="../services/ghostwriting.html">Ghost Writing</a></li>
+                        <li><a href="../services/blog-articles.html">Blog Articles</a></li>
+                        <li><a href="../services/newsletter-writing.html">Newsletter Writing</a></li>
+                        <li><a href="../services/resume-cv.html">Resume/CV</a></li>
+                        <li><a href="../services/custom-project.html">Custom Project</a></li>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="javascript:void(0)" class="dropdown-btn">Portfolio <span class="arrow">▼</span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="videos.html">Video</a></li>
+                        <li><a href="images.html">Images</a></li>
+                        <li><a href="before-after.html">Before & After</a></li>
+                    </ul>
+                </li>
+
+                <li><a href="../pricing.html">Pricing</a></li>
+                <li><a href="../privacy.html">Privacy</a></li>
+                <li><a href="../refund.html">Refund</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="main-wrapper">
+        
+        <div class="page-header">
+            <h1 class="fancy-title">Video Portfolio</h1>
+            <p class="page-subtitle">Explore our collection of AI-generated videos, promo edits, and creative short clips.</p>
+        </div>
+
+        <div class="coming-soon-container">
+            <h2 class="coming-soon-title">Coming Soon</h2>
+            <p class="coming-soon-text">We are currently curating an amazing collection of video projects for you. Check back shortly to view our updated portfolio!</p>
+        </div>
+
+    </main>
+
+    <script type="module" src="../js/threeui.js"></script>
+</body>
+</html>

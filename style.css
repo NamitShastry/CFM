@@ -1,0 +1,288 @@
+/* ==========================================
+   GLOBAL TYPOGRAPHY & CLOUD BACKGROUND
+   ========================================== */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=Syne:wght@600;700;800&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Dynamic Soft Light Background with Moving Colorful Clouds */
+body {
+    font-family: 'Outfit', sans-serif;
+    color: #0f172a;
+    min-height: 100vh;
+    overflow-x: hidden;
+    background: #f8fafc;
+    position: relative;
+}
+
+/* Layered Cloud Animations */
+body::before,
+body::after {
+    content: '';
+    position: fixed;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+body::before {
+    background: radial-gradient(circle at 30% 30%, rgba(192, 132, 252, 0.35), transparent 50%),
+                radial-gradient(circle at 70% 60%, rgba(125, 211, 252, 0.4), transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(254, 205, 211, 0.45), transparent 50%);
+    animation: cloudMoveOne 25s ease-in-out infinite alternate;
+}
+
+body::after {
+    background: radial-gradient(circle at 80% 20%, rgba(167, 243, 208, 0.35), transparent 45%),
+                radial-gradient(circle at 20% 70%, rgba(191, 219, 254, 0.45), transparent 50%);
+    animation: cloudMoveTwo 30s ease-in-out infinite alternate;
+}
+
+@keyframes cloudMoveOne {
+    0% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(-4%, 3%) scale(1.05); }
+    100% { transform: translate(3%, -3%) scale(0.98); }
+}
+
+@keyframes cloudMoveTwo {
+    0% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(3%, -4%) scale(1.03); }
+    100% { transform: translate(-3%, 2%) scale(1); }
+}
+
+/* Typography Headings */
+h1, h2, h3, .logo {
+    font-family: 'Syne', sans-serif;
+    letter-spacing: -0.5px;
+}
+
+/* ==========================================
+   NAVIGATION BAR & DROPDOWN
+   ========================================== */
+.navbar {
+    position: relative;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 3rem;
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+}
+
+.logo {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #0f172a;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.nav-links a,
+.nav-links .nav-item-disabled {
+    color: #475569;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    padding: 0.4rem 0.8rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+/* Darker Shade Hover Effect for Tabs */
+.nav-links a:hover,
+.nav-links .nav-item-disabled:hover {
+    color: #0f172a;
+    background: rgba(15, 23, 42, 0.08);
+}
+
+/* Dropdown Menu */
+.dropdown {
+    position: relative;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 250px;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(15, 23, 42, 0.1);
+    border-radius: 14px;
+    padding: 0.6rem;
+    list-style: none;
+    box-shadow: 0 12px 32px rgba(15, 23, 42, 0.12);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 1000;
+}
+
+.dropdown:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* Right-to-Left Entrance Animation for Dropdown Items */
+.dropdown-menu li {
+    opacity: 0;
+    transform: translateX(20px);
+    transition: all 0.35s ease;
+}
+
+.dropdown:hover .dropdown-menu li {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Staggered Delay for Dropdown Items */
+.dropdown:hover .dropdown-menu li:nth-child(1) { transition-delay: 0.03s; }
+.dropdown:hover .dropdown-menu li:nth-child(2) { transition-delay: 0.06s; }
+.dropdown:hover .dropdown-menu li:nth-child(3) { transition-delay: 0.09s; }
+.dropdown:hover .dropdown-menu li:nth-child(4) { transition-delay: 0.12s; }
+.dropdown:hover .dropdown-menu li:nth-child(5) { transition-delay: 0.15s; }
+.dropdown:hover .dropdown-menu li:nth-child(6) { transition-delay: 0.18s; }
+.dropdown:hover .dropdown-menu li:nth-child(7) { transition-delay: 0.21s; }
+.dropdown:hover .dropdown-menu li:nth-child(8) { transition-delay: 0.24s; }
+.dropdown:hover .dropdown-menu li:nth-child(9) { transition-delay: 0.27s; }
+.dropdown:hover .dropdown-menu li:nth-child(10) { transition-delay: 0.30s; }
+
+.dropdown-menu li a {
+    display: block;
+    padding: 0.6rem 1rem;
+    color: #334155;
+    font-size: 0.88rem;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+/* Darker tint hover on dropdown items */
+.dropdown-menu li a:hover {
+    background: rgba(15, 23, 42, 0.08);
+    color: #0f172a;
+    font-weight: 600;
+}
+
+/* ==========================================
+   PAGE ANIMATIONS & CARDS
+   ========================================== */
+.main-wrapper, .wrapper {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+}
+
+.page-title, h1 {
+    text-align: center;
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 2.5rem;
+    color: #0f172a;
+    /* Bottom-to-Top Float Entrance */
+    animation: floatUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Grid & Cards Float-Up Entrance */
+.about-grid, .card {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr 1.5fr 1fr;
+    gap: 1.5rem;
+    align-items: stretch;
+    animation: floatUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* General Page Content Float Up */
+.content-float-up, p, .back-btn {
+    animation: floatUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes floatUp {
+    0% {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.grid-box {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    border-radius: 20px;
+    padding: 1.8rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Hover Effect on Cards */
+.grid-box:hover {
+    transform: translateY(-8px);
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08);
+}
+
+.image-card {
+    padding: 0;
+    overflow: hidden;
+    min-height: 320px;
+}
+
+.image-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 20px;
+    transition: transform 0.6s ease;
+}
+
+.image-card:hover img {
+    transform: scale(1.05);
+}
+
+.text-card h2 {
+    font-size: 1.6rem;
+    color: #0f172a;
+    margin-bottom: 0.3rem;
+}
+
+.text-card .role {
+    display: inline-block;
+    color: #2563eb;
+    font-weight: 600;
+    font-size: 0.88rem;
+    margin-bottom: 1rem;
+}
+
+.text-card p {
+    color: #475569;
+    font-size: 0.95rem;
+    line-height: 1.65;
+}
+
+/* Mobile Responsive */
+@media (max-width: 900px) {
+    .about-grid { grid-template-columns: 1fr; }
+    .navbar { flex-direction: column; gap: 1rem; }
+    .nav-links { flex-wrap: wrap; justify-content: center; }
+}

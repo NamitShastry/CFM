@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Before & After Portfolio | CreateForMe</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playwrite+CU:wght@300;400&family=Syne:wght@700;800&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Moving Soft Cloud Animated Background */
+        body {
+            font-family: 'Outfit', sans-serif;
+            min-height: 100vh;
+            color: #0f172a;
+            background: linear-gradient(135deg, #f0f4ff 0%, #e8eefd 25%, #fcefe8 50%, #e3f2fd 75%, #f3e8ff 100%);
+            background-size: 400% 400%;
+            animation: cloudAnimation 15s ease infinite;
+        }
+
+        @keyframes cloudAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Navigation Bar Styles */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 3rem;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: #0f172a;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #334155;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #2563eb;
+        }
+
+        /* Dropdown Menus */
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: #ffffff;
+            min-width: 220px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            padding: 0.8rem 0;
+            list-style: none;
+            z-index: 1001;
+        }
+
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+
+        .dropdown-menu li a {
+            padding: 0.6rem 1.2rem;
+            display: block;
+            color: #334155;
+            font-size: 0.9rem;
+        }
+
+        .dropdown-menu li a:hover {
+            background: #f1f5f9;
+            color: #2563eb;
+        }
+
+        /* Main Content Layout */
+        .main-wrapper {
+            max-width: 1100px;
+            margin: 3rem auto 5rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .fancy-title {
+            font-family: 'Playwrite CU', cursive;
+            font-size: 3.5rem;
+            color: #0f172a;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            animation: fadeInDown 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .page-subtitle {
+            text-align: center;
+            font-size: 1.15rem;
+            color: #475569;
+            max-width: 800px;
+            margin: 0 auto 3rem auto;
+            line-height: 1.7;
+            animation: floatUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
+            opacity: 0;
+        }
+
+        /* Coming Soon Section Styles */
+        .coming-soon-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            min-height: 40vh;
+            padding: 3rem 1.5rem;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(12px);
+            border: 2px dashed rgba(15, 23, 42, 0.15);
+            border-radius: 20px;
+            margin: 2rem 0 4rem 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+            animation: floatUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
+            opacity: 0;
+        }
+
+        .coming-soon-title {
+            font-family: 'Syne', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 1rem;
+            letter-spacing: -0.025em;
+        }
+
+        .coming-soon-text {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.1rem;
+            color: #475569;
+            max-width: 500px;
+            line-height: 1.6;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes floatUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            .navbar { padding: 1rem 1.5rem; flex-direction: column; gap: 1rem; }
+            .nav-links { flex-wrap: wrap; justify-content: center; gap: 1rem; }
+            .fancy-title { font-size: 2.5rem; }
+        }
+    </style>
+    <link rel="stylesheet" href="../css/threeui.css">
+</head>
+<body>
+    <div id="cfm-loader" aria-hidden="true">
+        <div class="cfm-loader-mark"><span class="cfm-loader-dot"></span>CreateForMe</div>
+    </div>
+    <canvas id="cfm-bg-canvas" aria-hidden="true"></canvas>
+
+
+    <header class="navbar">
+        <div class="logo">CreateForMe</div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="../index.html">About</a></li>
+                <li class="dropdown">
+                    <a href="javascript:void(0)" class="dropdown-btn">Services We Offer ▾</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="../services/thumbnail-design.html">Thumbnail Design</a></li>
+                        <li><a href="../services/ai-image-generation.html">AI Image Generation</a></li>
+                        <li><a href="../services/ai-video-generation.html">AI Video Generation</a></li>
+                        <li><a href="../services/voice-over.html">Voice Over</a></li>
+                        <li><a href="../services/book-writing-guidance.html">Book Writing (guidance only)</a></li>
+                        <li><a href="../services/ghostwriting.html">Ghost Writing</a></li>
+                        <li><a href="../services/blog-articles.html">Blog Articles</a></li>
+                        <li><a href="../services/newsletter-writing.html">Newsletter Writing</a></li>
+                        <li><a href="../services/resume-cv.html">Resume/CV</a></li>
+                        <li><a href="../services/custom-project.html">Custom Project</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="javascript:void(0)" class="dropdown-btn">Portfolio ▾</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="videos.html">Video</a></li>
+                        <li><a href="images.html">Images</a></li>
+                        <li><a href="before-after.html">Before & After</a></li>
+                    </ul>
+                </li>
+                <li><a href="../pricing.html">Pricing</a></li>
+                <li><a href="../privacy.html">Privacy</a></li>
+                <li><a href="../refund.html">Refund</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="main-wrapper">
+        <div class="page-header">
+            <h1 class="fancy-title">Before & After</h1>
+        </div>
+        
+        <p class="page-subtitle">
+            See the transformation for yourself. Our Before & After gallery highlights the difference between the original content and the final polished version, giving you a clear picture of the improvements made through editing, design, and creative enhancements.
+        </p>
+
+        <div class="coming-soon-container">
+            <h2 class="coming-soon-title">Coming Soon</h2>
+            <p class="coming-soon-text">We are currently curating an amazing collection of transformation examples for you. Check back shortly to view our updated Before & After portfolio!</p>
+        </div>
+    </main>
+
+    <script type="module" src="../js/threeui.js"></script>
+</body>
+</html>

@@ -1,0 +1,214 @@
+/* ==========================================================
+   CreateForMe — CFM3D shared interactive studio system
+   Additive layer: loads after every page's own stylesheet/
+   inline styles and only styles elements/classes it creates
+   itself, or generic hooks (.cfm-tilt, .cfm-magnetic, …) that
+   the accompanying threeui.js applies at runtime.
+   ========================================================== */
+
+:root {
+  --cfm-scroll: 0;
+}
+
+/* ---------------- Ambient background canvas ---------------- */
+#cfm-bg-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+  display: block;
+}
+
+/* ---------------- Loader ---------------- */
+#cfm-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f8fafc;
+  transition: opacity 0.45s ease, visibility 0.45s ease;
+}
+
+#cfm-loader .cfm-loader-mark {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 1.4rem;
+  letter-spacing: 0.02em;
+  color: #0f172a;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+#cfm-loader .cfm-loader-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #8b5cf6, #60a5fa);
+  animation: cfmLoaderPulse 1s ease-in-out infinite;
+}
+
+@keyframes cfmLoaderPulse {
+  0%, 100% { transform: scale(0.7); opacity: 0.5; }
+  50% { transform: scale(1.15); opacity: 1; }
+}
+
+#cfm-loader.cfm-loader--done {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #cfm-loader .cfm-loader-dot { animation: none; }
+}
+
+/* ---------------- Page enter/leave transition ---------------- */
+html.cfm-enter body {
+  opacity: 0;
+}
+
+html.cfm-enter.cfm-enter--active body {
+  opacity: 1;
+  transition: opacity 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html.cfm-leaving body {
+  opacity: 0 !important;
+  transform: scale(0.99);
+  transition: opacity 0.19s ease, transform 0.19s ease;
+}
+
+/* ---------------- Cursor glow ---------------- */
+.cfm-cursor-glow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 340px;
+  height: 340px;
+  margin-left: -170px;
+  margin-top: -170px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.14) 0%, rgba(96, 165, 250, 0.07) 45%, transparent 72%);
+  pointer-events: none;
+  z-index: 5;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  will-change: transform;
+  mix-blend-mode: multiply;
+}
+
+/* ---------------- Card depth / tilt ---------------- */
+.cfm-tilt {
+  --cfm-rx: 0deg;
+  --cfm-ry: 0deg;
+  --cfm-tz: 0px;
+  --cfm-glow-x: 50%;
+  --cfm-glow-y: 50%;
+  position: relative;
+  transform-style: preserve-3d;
+  will-change: transform;
+  transform: perspective(900px) rotateX(var(--cfm-rx)) rotateY(var(--cfm-ry)) translateZ(var(--cfm-tz));
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cfm-tilt::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(circle at var(--cfm-glow-x) var(--cfm-glow-y), rgba(255, 255, 255, 0.5), transparent 60%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  mix-blend-mode: soft-light;
+}
+
+.cfm-tilt:hover::after {
+  opacity: 1;
+}
+
+/* ---------------- Magnetic elements ---------------- */
+.cfm-magnetic {
+  display: inline-block;
+  transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ---------------- Scroll parallax ---------------- */
+.cfm-parallax {
+  transform: translateY(calc(var(--cfm-scroll) * -0.02px));
+}
+
+/* ---------------- Reveal-on-scroll (elements not already animated) --- */
+.cfm-reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cfm-reveal--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---------------- Mini 3D orb inside "coming soon" panels ---------------- */
+.coming-soon-container {
+  position: relative;
+}
+
+.cfm-orb-wrap {
+  width: 132px;
+  height: 132px;
+  margin: 0 auto 1.25rem;
+  filter: drop-shadow(0 8px 20px rgba(15, 23, 42, 0.12));
+}
+
+.cfm-orb-canvas {
+  display: block;
+  width: 132px;
+  height: 132px;
+}
+
+/* ---------------- Nav polish (works with the existing dropdown system) */
+.navbar {
+  transition: box-shadow 0.3s ease;
+}
+
+.dropdown-menu li a {
+  will-change: transform;
+}
+
+/* ---------------- Reduced motion / accessibility guardrails ---------------- */
+@media (prefers-reduced-motion: reduce) {
+  .cfm-tilt,
+  .cfm-magnetic,
+  .cfm-parallax,
+  html.cfm-enter body,
+  html.cfm-enter.cfm-enter--active body,
+  html.cfm-leaving body {
+    transition: none !important;
+    transform: none !important;
+  }
+  .cfm-reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Coarse-pointer devices: keep depth affordance via a lightweight
+   static lift instead of a pointer-driven tilt that can never fire. */
+@media (pointer: coarse) {
+  .cfm-cursor-glow { display: none; }
+}
+
+@media (max-width: 640px) {
+  .cfm-orb-wrap,
+  .cfm-orb-canvas {
+    width: 100px;
+    height: 100px;
+  }
+}
